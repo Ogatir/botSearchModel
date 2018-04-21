@@ -18,11 +18,11 @@ public class Authorizer {
   }
 
   public Authorizer(String CLIENT_SECRET,String CODE,int CLIENT_ID,String code,String codeRequest){
-       /* this.CLIENT_SECRET=CLIENT_SECRET;
+        this.CLIENT_SECRET=CLIENT_SECRET;
         this.CODE=CODE;
         this.CLIENT_ID=CLIENT_ID;
         this.code=code;
-        this.codeRequest=codeRequest;*/
+        this.codeRequest=codeRequest;
   }
 
   public UserActor getAccessToken(VkApiClient vk){
