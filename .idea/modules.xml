@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/botSearchModel.iml" filepath="$PROJECT_DIR$/.idea/modules/botSearchModel.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/botSearchModel_main.iml" filepath="$PROJECT_DIR$/.idea/modules/botSearchModel_main.iml" group="botSearchModel" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/botSearchModel_test.iml" filepath="$PROJECT_DIR$/.idea/modules/botSearchModel_test.iml" group="botSearchModel" />
+    </modules>
+  </component>
+</project>
