@@ -1,0 +1,7 @@
+String CLIENT_ID="6430983";
+Защищенный ключ VfgVHh7PK8qHigKFQ2cf
+Сервисный код доступа a89a878fa89a878fa89a878f9ca8f8a688aa89aa89a878ff224ce66c609ad87966d30b4
+Redirect https://oauth.vk.com/blank.html
+
+https://oauth.vk.com/authorize?client_id=6430983;
+&display=page&redirect_uri=https://oauth.vk.com/blank.html&scope=friends&response_type=code&v=5.73
