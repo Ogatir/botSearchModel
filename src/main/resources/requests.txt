@@ -4,4 +4,4 @@ String CLIENT_ID="6430983";
 Redirect https://oauth.vk.com/blank.html
 
 https://oauth.vk.com/authorize?client_id=6430983;
-&display=page&redirect_uri=https://oauth.vk.com/blank.html&scope=friends&response_type=code&v=5.73
+&display=page&redirect_uri=https://oauth.vk.com/blank.html&scope=friends,offline,groups&response_type=code&v=5.73

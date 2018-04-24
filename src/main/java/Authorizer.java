@@ -9,20 +9,17 @@ public class Authorizer {
   private String CODE="4a2151f18a0fcb802dd3d879b40997e298b3a0988e78f1c703296bb76538d4a17f69c412c5e65a85762ec";
   private int CLIENT_ID=6430983;
   private String REDIRECT_URL="https://oauth.vk.com/blank.html";
-  private String code="cc2db51241ea7d471b";
-  private String codeRequest="https://oauth.vk.com/authorize?client_id=6430983"+
-            "&display=page&redirect_uri=https://oauth.vk.com/blank.html&scope=friends&response_type=code&v=5.73";
+  private String code="3bb5f1d9bf6522c4ca";
 
   public Authorizer(){
 
   }
 
-  public Authorizer(String CLIENT_SECRET,String CODE,int CLIENT_ID,String code,String codeRequest){
+  public Authorizer(String CLIENT_SECRET,String CODE,int CLIENT_ID,String code){
         this.CLIENT_SECRET=CLIENT_SECRET;
         this.CODE=CODE;
         this.CLIENT_ID=CLIENT_ID;
         this.code=code;
-        this.codeRequest=codeRequest;
   }
 
   public UserActor getAccessToken(VkApiClient vk){
@@ -33,6 +30,7 @@ public class Authorizer {
           UserAuthResponse authResponse = vk.oauth()
                   .userAuthorizationCodeFlow(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL, code)
                   .execute();
+          String accessToken = authResponse.getAccessToken();
           UserActor actor = new UserActor(authResponse.getUserId(), authResponse.getAccessToken());
           return actor;
       } catch (Exception e){
