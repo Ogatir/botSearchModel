@@ -6,6 +6,7 @@ import com.vk.api.sdk.objects.friends.responses.GetFieldsResponse;
 import com.vk.api.sdk.queries.friends.FriendsGetOrder;
 import com.vk.api.sdk.queries.users.UserField;
 
+import java.lang.reflect.Executable;
 import java.util.List;
 
 public class GetFriends {
@@ -17,17 +18,20 @@ public class GetFriends {
         this.actor=actor;
     }
 
-    public void PrintFriends(){
+    public void PrintFriends(int userId){
         try {
-            GetFieldsResponse getResponse = vk.friends().get(actor, UserField.SEX)
-                    .userId(16268448)
+            GetFieldsResponse getResponse = vk.friends().get(actor,UserField.BDATE,UserField.ABOUT,UserField.CONTACTS)
+                    .userId(userId)
                     .order(FriendsGetOrder.NAME)
                     .execute();
             List<UserXtrLists> friendList = getResponse.getItems();
             for (UserXtrLists friend : friendList)
-                System.out.println(friend.getFirstName() + " " + friend.getLastName() + " id=" + friend.getId());
+                System.out.println(friend.getFirstName() + " " + friend.getLastName() + " id="
+                        + friend.getId()+" Contacts: "+friend.getMobilePhone());
         } catch (Exception e){
-
+            e.printStackTrace();
         }
     }
+
+
 }

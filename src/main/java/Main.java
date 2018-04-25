@@ -32,7 +32,9 @@ public class Main {
         UserActor actor = new UserActor(16268448,
                 "fb86295fb2452726eb3b6f1243145b0031929e1e00d97d4b18a118ab6f3194314c70c395436c14e6da769");
         GetFriends friendsGetter = new GetFriends(vk,actor);
-        friendsGetter.PrintFriends();
+        friendsGetter.PrintFriends(16268448);
+        GetWall wallGetter = new GetWall(vk,actor);
+        wallGetter.PrintWallContent(16268448,10);
         System.out.println("Hello world");
     }
 }
