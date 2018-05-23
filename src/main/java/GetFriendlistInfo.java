@@ -33,5 +33,18 @@ public class GetFriends {
         }
     }
 
+    public List<UserXtrLists> GetFriendList(int UserId){
+        try {
+            GetFieldsResponse getResponse = vk.friends().get(actor,UserField.BDATE,UserField.ABOUT,UserField.CONTACTS)
+                    .userId(UserId)
+                    .order(FriendsGetOrder.NAME)
+                    .execute();
+            return getResponse.getItems();
+        } catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 
 }
