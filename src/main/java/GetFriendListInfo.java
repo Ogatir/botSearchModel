@@ -1,21 +1,20 @@
 import com.vk.api.sdk.client.VkApiClient;
 import com.vk.api.sdk.client.actors.UserActor;
-import com.vk.api.sdk.objects.friends.FriendsList;
 import com.vk.api.sdk.objects.friends.UserXtrLists;
 import com.vk.api.sdk.objects.friends.responses.GetFieldsResponse;
 import com.vk.api.sdk.queries.friends.FriendsGetOrder;
 import com.vk.api.sdk.queries.users.UserField;
-
-import java.lang.reflect.Executable;
 import java.util.List;
 
-public class GetFriends {
+public class GetFriendListInfo {
     private VkApiClient vk;
     private UserActor actor;
+    private List <UserXtrLists> friendList;
 
-    public  GetFriends(VkApiClient vk, UserActor actor){
+    public GetFriendListInfo(VkApiClient vk, UserActor actor, int userId){
         this.vk=vk;
         this.actor=actor;
+        friendList=GetFriendList(userId);
     }
 
     public void PrintFriends(int userId){
@@ -44,6 +43,10 @@ public class GetFriends {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public int GetFriendsCount(){
+        return friendList.size();
     }
 
 

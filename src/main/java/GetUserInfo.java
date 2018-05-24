@@ -6,14 +6,14 @@ import com.vk.api.sdk.objects.users.UserXtrCounters;
 import com.vk.api.sdk.queries.users.UserField;
 import java.util.List;
 
-public class GetUser {
+public class GetUserInfo {
 
     private VkApiClient vk;
     private UserActor actor;
     UserXtrCounters user;
 
 
-    public GetUser(VkApiClient vk, UserActor actor, int UserId){
+    public GetUserInfo(VkApiClient vk, UserActor actor, int UserId){
         this.vk=vk;
         this.actor=actor;
         this.user=GetUser(UserId);
@@ -55,6 +55,10 @@ public class GetUser {
         if (user.isVerified())
             return true;
         else return false;
+    }
+
+    public int GetFollowersCount(){
+        return user.getFollowersCount();
     }
 
     public String GetFullName(){
