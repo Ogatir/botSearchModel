@@ -32,6 +32,8 @@ public class GetFriendListInfo {
         }
     }
 
+
+
     public List<UserXtrLists> GetFriendList(int UserId){
         try {
             GetFieldsResponse getResponse = vk.friends().get(actor,UserField.BDATE,UserField.ABOUT,UserField.CONTACTS)

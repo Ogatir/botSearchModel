@@ -11,6 +11,7 @@ public class AccountAnalyser {
     private UserActor actor;
     GetUserInfo userGetter;
 
+
     public AccountAnalyser(int userId, VkApiClient vk, UserActor actor){
         this.UserId=userId;
         this.vk=vk;
@@ -33,8 +34,51 @@ public class AccountAnalyser {
         return 0;
     }
 
+    public void CollectStatistics(int[] idArray){
+
+        float[] wallPostFreqArray = new float[idArray.length];
+        int[] numberOfSoursesArray = new int[idArray.length];
+        float[] likesToFriendsArray = new float[idArray.length];
+        float[] linksToPostArray = new float[idArray.length];
+
+        for (int i=0;i<idArray.length;i++){
+            userGetter = new GetUserInfo(vk,actor,idArray[i]);
+            GetFriendListInfo friendListInfo = new GetFriendListInfo(vk,actor,idArray[i]);
+            GetWallInfo wallGetter = new GetWallInfo(vk,actor,idArray[i]);
+            wallPostFreqArray[i]=wallGetter.GetWallPostFreq();
+
+            int [] likesCountArray = wallGetter.GetLikesCount();
+            int count=0;
+            for (int j=0;j<wallGetter.PostCount();j++){
+                count+=likesCountArray[j];
+            }
+            float averageLikesPerPost =(float) count/(float)likesCountArray.length;
+            likesToFriendsArray[i] = averageLikesPerPost/friendListInfo.GetFriendsCount();
+
+            numberOfSoursesArray[i]= wallGetter.GetPublishers().size();
+
+            TreeMap<Integer,Boolean> linksPresent = wallGetter.GetLinksPresent();
+            int linksCount=0;
+            for (Map.Entry<Integer, Boolean> pub : linksPresent.entrySet())
+            {
+                if (pub.getValue())
+                    linksCount++;
+            }
+            linksToPostArray[i] = linksCount/linksPresent.size();
+            try{
+                Thread.sleep(1000);
+            }
+            catch(InterruptedException e){
+                e.printStackTrace();
+            }
+
+            DBG.Log("Пользователь %d\nСредняя частота постов = %f\nОтношение количества лайков к друзьям = %f\n" +
+                    "Отношение количество ссылок к постам = %f\nКоличество источников = %d\n",
+                    idArray[i],wallPostFreqArray[i],likesToFriendsArray[i],linksToPostArray[i],numberOfSoursesArray[i]);
+        }
+    }
     private boolean PostFreqHigh(GetWallInfo wallGetter){
-        long[] postCreationTimes=new long[wallGetter.PostCount()];
+      /*  long[] postCreationTimes=new long[wallGetter.PostCount()];
         long[] postIntervals=new long[wallGetter.PostCount()-1];
         ArrayList<ArrayList<Long>> intervalGroups = new ArrayList<>();
         intervalGroups.add(new ArrayList<>());
@@ -71,7 +115,8 @@ public class AccountAnalyser {
         for (int i=0;i<groupsNumber;i++){
             count+=intervalGroups.get(i).size();
         }
-        averageGroupSize = (float)count/(float)groupsNumber;
+        averageGroupSize = (float)count/(float)groupsNumber;*/
+        float averageGroupSize = wallGetter.GetWallPostFreq();
         System.out.printf("Среднее число постов в сутки = %f\n",averageGroupSize);
         if (averageGroupSize>2)
             return true;
@@ -136,6 +181,7 @@ public class AccountAnalyser {
         return true;
              else return false;
     }
+
     public void PrintResults(boolean[] criteriaArray){
         DBG.LogWithoutTime("\n---------------------------------");
         DBG.Log("Имя: %s",userGetter.GetFullName());

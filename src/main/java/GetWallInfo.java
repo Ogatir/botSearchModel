@@ -42,6 +42,47 @@ public class GetWallInfo {
         return userWallPosts.size();
     }
 
+    public float GetWallPostFreq(){
+        long[] postCreationTimes=new long[this.PostCount()];
+        long[] postIntervals=new long[this.PostCount()-1];
+        ArrayList<ArrayList<Long>> intervalGroups = new ArrayList<>();
+        intervalGroups.add(new ArrayList<>());
+
+        for (int i=0;i<this.PostCount();i++)
+            postCreationTimes[i] = this.GetWallPostTime(i);
+
+        for(int i=0;i<this.PostCount()-1;i++){
+            postIntervals[i]=postCreationTimes[i]-postCreationTimes[i+1];
+            System.out.printf("%d и %d: %d\n",i,i+1,postIntervals[i]);
+            int oneDay = 86400;
+            if (postIntervals[i]< oneDay){
+                int lastIndexOfOut = intervalGroups.size()-1;
+                intervalGroups.get(lastIndexOfOut).add(postIntervals[i]);
+            }
+            else {
+                intervalGroups.add(new ArrayList<>());
+                int lastIndexOfOut = intervalGroups.size()-1;
+                intervalGroups.get(lastIndexOfOut).add(postIntervals[i]);
+            }
+
+        }
+        for (int i=0;i<intervalGroups.size();i++){
+            System.out.printf("%d: ",i+1);
+            for (int j=0;j<intervalGroups.get(i).size();j++){
+                System.out.printf("%d ",intervalGroups.get(i).get(j));
+            }
+            System.out.println();
+        }
+
+        int groupsNumber = intervalGroups.size();
+        float averageGroupSize=0;
+        int count=0;
+        for (int i=0;i<groupsNumber;i++){
+            count+=intervalGroups.get(i).size();
+        }
+        averageGroupSize = (float)count/(float)groupsNumber;
+        return averageGroupSize;
+    }
     public long GetWallPostTime(int postNum){
         WallPostFull post = userWallPosts.get(postNum);
         Date date = new Date(post.getDate());

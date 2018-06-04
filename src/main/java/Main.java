@@ -18,6 +18,15 @@ public class Main {
                 "487c94c8a7c2c228a8cdc957157afc162f862a3c914d2576e5e6578f6f4d07349849a8aa3e105ea664886");
 
         AccountAnalyser analyser = new AccountAnalyser(444761730, vk,actor);
+        int[] idArray = {
+                444761730,
+                53447095,
+                79232504,
+                209201650,
+                233229807,
+                484111912
+        };
         analyser.Analyse();
+        analyser.CollectStatistics(idArray);
     }
 }
